@@ -23,14 +23,56 @@ pub fn part_one(notes: &str) -> Option<String> {
 
 #[allow(unused_variables)]
 pub fn part_two(notes: &str) -> Option<String> {
-    None
+    let mut crate_list = parse_crates(notes);
+    crate_list.sort();
+    
+    let mut prev = crate_list[0];
+    let mut smallest_set = prev;
+    let mut count = 1;
+    for i in crate_list{
+        if i > prev{
+            smallest_set+=i;
+            prev = i;
+            count+=1;
+            if count == 20 {break;}
+
+
+        }
+        
+    }
+    Some(smallest_set.to_string())
 }
 
 #[allow(unused_variables)]
 pub fn part_three(notes: &str) -> Option<String> {
-    None
+    let mut crate_list = parse_crates(notes);
+    //println!("{}",crate_list.len());
+    crate_list.sort(); crate_list.reverse();
+
+    let mut set_vec: Vec<Set> = vec![Set{prev: crate_list[0],amount: crate_list[0]}];
+    for i in crate_list{
+        let mut  found_a_spot = false;
+        for j  in 0..set_vec.len() {
+            if i< set_vec[j].prev {
+                set_vec[j].amount+=i;
+                set_vec[j].prev = i;
+                found_a_spot = true;
+                break;
+            }
+        }
+        if found_a_spot {continue};
+
+        set_vec.push(Set{prev:i,amount:i});
+        
+            
+    }
+    Some(set_vec.len().to_string())
 }
 
+struct Set {
+    prev: i64,
+    amount: i64
+}
 #[cfg(test)]
 mod tests {
     use super::*;
