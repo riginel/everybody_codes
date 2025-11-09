@@ -43,7 +43,7 @@ impl PartialEq<FishBone> for FishBone {
 impl PartialOrd<FishBone> for FishBone {
     fn partial_cmp(&self, other: &FishBone) -> Option<Ordering> {
         let (quality_a, quality_b) = (self.get_quality(), other.get_quality());
-        if (!(quality_a == quality_b)) {
+        if !(quality_a == quality_b) {
             return quality_a.partial_cmp(&quality_b);
         }
         let second_comparison = self
@@ -128,7 +128,7 @@ pub fn part_three(notes: &str) -> Option<String> {
         .iter()
         .enumerate()
         .map(|(idx, elem)| (idx + 1, elem))
-        .fold(1, |acc: i64, (idx, elem)| {
+        .fold(0, |acc: i64, (idx, elem)| {
             acc + (idx as i64 * elem.identifier)
         })
         .to_string();
