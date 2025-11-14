@@ -20,3 +20,4 @@ hex = "0.4"
 block-padding = "0.3"
 
 # Additional dependencies
+disjoint="0.8.0"
